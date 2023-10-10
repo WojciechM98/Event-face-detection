@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Event Face Detection</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+  </head>
+  <body>
+    <h1>Date the photos was taken: {{data.img_date}}  {{data.img_time}}</h1>
+    <ul>
+      {% for base64_image in images_base64 %}
+        <img src="data:image/png;base64,{{ base64_image }}" id="image" alt="Image {{ loop.index }}">
+      {% endfor %}
+    </ul>
+    <div id="dateAndTime" data-img-date="{{ data.img_date }}" data-img-time="{{ data.img_time }}"></div>
+    <button id="saveButton">Download images</button>
+    <script>
+      // Sample base64-encoded image data
+      var base64Images = [
+          {% for base64_image in images_base64 %}
+              "{{ base64_image }}",
+          {% endfor %}
+      ];
+    </script>
+    <script src="{{ url_for('static', filename='js/downloadImages.js') }}"></script>
+  </body>
+</html>
