@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Event Face Detection</title>
+  </head>
+  <body>
+    <h1>Database data</h1>
+      {% if data == []: %}
+      <p>Database is empty.</p>
+      {% endif %}
+    <ul>
+      {% for row in data %}
+      <li>
+        {{row.id}} - {{row.date}} - {{row.date_time}}
+        <a href="{{ url_for('show_image', id=row.id, date=row.date, time=row.date_time) }}">Show Image</a>
+        <a href="{{ url_for('delete', id=row.id) }}">Delete</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <a href="{{ url_for('rec') }}">Record and extract face</a>
+  </body>
+</html>
