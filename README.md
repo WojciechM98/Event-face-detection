@@ -42,15 +42,27 @@ This route is used to display an images. It retrieves the id, date, and time var
 
 ### Record Route (/rec):
 ```python
-@app.route("/delete")
-def delete():
-    # Get variables from page
-    img_id = request.args.get('id')
-    # Query database Data table with given row id
-    image_to_delete = db.get_or_404(Data, img_id)
-    # Delete row and commit changes
-    db.session.delete(image_to_delete)
+@app.route("/rec")
+def rec():
+    # Get current date and time
+    now = datetime.datetime.now()
+    date = now.strftime('%d-%m-%Y')
+    time = now.strftime('%H:%M:%S')
+    # Create custom ID string with date and time
+    id_string = now.strftime('%Y%m%d%H%M%S')
+    # Create new row in database Data table
+    new_record = Data(id=id_string, date=date, date_time=time)
+    # Run function for detecting and extracts face from and image
+    images = face_detection.capture()
+    # Create test list of images
+    # images = [cv2.imread('output_img_from_database.jpg'), cv2.imread('2.jpg')]
+    # Append list of numpy arrays (extracted images) to existing row in Images table
+    new_image = Images(image=images, data_id=id_string)
+    # Add and commit changes into database
+    db.session.add(new_record)
+    db.session.add(new_image)
     db.session.commit()
+    send_email(id_string)
     return redirect(url_for('home'))
 ```
 This route is responsible for capturing and storing a new face images in the databse. It first obtains the current date and time. It then generates a custom id_string using the current date and time. It creates a new row in the Data table with this id_string. It captures images using a function called face_detection.capture(), which comes from face_extractor module. The captured images are added to the Images table in the database, associated with the same id_string. After adding the data and images to the database, it sends an email with use of send_email() function and redirects the user to the home page.
