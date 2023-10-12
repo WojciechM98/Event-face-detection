@@ -83,8 +83,4 @@ def delete():
 This route is used to delete a record from the database. It retrieves the id variable from the request's query parameters and uses it to query the Data table in the database for the corresponding record. After successfully retrieving the record, it deletes it and commits the changes to the database. It then redirects the user back to the home page.
 
 
-
-
-
-
-
+Project in constant development
