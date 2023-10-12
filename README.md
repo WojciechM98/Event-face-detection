@@ -13,7 +13,7 @@ This module contains FaceExtraction class which has two function for capture the
 Main function where Flask server and SQLite using SQLAlchemy library is setup.
 SQL dataset has two tables. First table called **Data** is set as a parent talbe. Each row contains 3 columns: **id**, **date**, **date_time**. Second table called **Images** is a child table and it inherits id from Data table. Each row contains 2 columns: **data_id** and **image**.
 
-```
+```python
 @app.route("/send-email/<int:image_id>")
 def email_notification(image_id):
     send_email(image_id)
