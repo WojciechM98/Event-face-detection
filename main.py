@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from FaceExtractor import FaceExtractor
+from face_extractor import FaceExtractor
 import cv2
 import datetime
 import os
@@ -157,11 +157,10 @@ def rec():
     return redirect(url_for('home'))
 
 
-@app.route("/send-email/<int:image_id>")
-def email_notification(image_id):
-    send_email(image_id)
-
-    return redirect(url_for('home'))
+# @app.route("/send-email/<int:image_id>")
+# def email_notification(image_id):
+#     send_email(image_id)
+#     return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
